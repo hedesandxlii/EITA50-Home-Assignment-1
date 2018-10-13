@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[left=2cm, right=2cm, top=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+
+\title{Home Assignment 1}
+\author{André Hedesand}
+\date{October 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Solutions}
+
+\begin{enumerate}
+    \item
+    \begin{enumerate}
+        \item % 1a
+            \emph{"Recursive systems are never stable"}
+            \\
+            \textbf{False.} 
+            Recursive systems are IIR systems e.g. 
+            $$ y(n) = \frac{1}{2}y(n-1) + x(n) $$
+            If we by stability mean BIBO-stability we can simply prove that the system above is stable. The Z-transorm of the system above is
+            $$ 
+            Y(z) = \frac{1}{2}z^{-1}Y(z) + X(z) \Rightarrow
+            Y(z)(1 - \frac{1}{2}z^{-1}) = X(z) \Rightarrow
+            $$
+            $$
+            Y(z) = \frac{1}{1 - \frac{1}{2}z^{-1}}X(z) = 
+            H(z) X(z) \Rightarrow 
+            H(z) = \frac{1}{1 - \frac{1}{2}z^{-1}} \Rightarrow
+            $$
+            $$
+            h(n) = (\frac{1}{2})^{n} u(n)
+            $$
+            
+            By definition the system above is stable if
+            $ \sum_{n=0}^{\infty} |(\frac{1}{2})^{n}| < \infty $.
+            This is true because $(\frac{1}{2})^{n}$ goes to zero as $n$ goes to $\infty$.
+        
+        \item % 1b
+            \emph{"A convolution of two sequences in the time domain corresponds to a multiplication of the Z transforms of the signals."}
+            \\
+            \textbf{True.} This is true by definition.
+        
+        \item % 1c
+            \emph{"An FIR filter is always stable."}
+            \\
+            \textbf{True.}
+            A FIR filter can be discribed with a difference equation:
+            $$ y(n) = \sum_{k=0}^{N} a_k x(n-k)$$
+            The system is stable as all $a_n < \infty$.
+            
+        \item % 1d
+            \emph{A first order IIR filter is stable iff the absolute value of the value of the factor in front of $y(n-1)$ is greater than 1.}
+            \\
+            \textbf{False.} The opposite is true. We can prove this by contradiction: If we assume the statement above is true we get:
+            
+            $$
+            y(n) = Ay(n-1) + x(n), A > 1
+            $$
+            \begin{center}
+                \textit{and}
+            \end{center}
+            $$
+            \sum_k |h(k)| < \infty
+            $$
+            
+            Lets do the same Z-transform as in \emph{1a)}:
+            $$
+            y(n) = Ay(n-1) + x(n) \Rightarrow h(n) = A^nu(n)
+            $$
+            At last we get
+            $$
+            \sum_k |h(k)| < \infty \Rightarrow \sum_{n=0}^{\infty}|A^n| < \infty
+            $$
+            
+            
+    \end{enumerate} 
+\end{enumerate}
+
+\end{document}
