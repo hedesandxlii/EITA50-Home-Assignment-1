@@ -10,74 +10,145 @@
 
 \maketitle
 
-\section{Solutions}
+\section*{Solutions}
 
 \begin{enumerate}
     \item
-    \begin{enumerate}
-        \item % 1a
-            \emph{"Recursive systems are never stable"}
-            \\
-            \textbf{False.} 
-            Recursive systems are IIR systems e.g. 
-            $$ y(n) = \frac{1}{2}y(n-1) + x(n) $$
-            If we by stability mean BIBO-stability we can simply prove that the system above is stable. The Z-transorm of the system above is
-            $$ 
-            Y(z) = \frac{1}{2}z^{-1}Y(z) + X(z) \Rightarrow
-            Y(z)(1 - \frac{1}{2}z^{-1}) = X(z) \Rightarrow
-            $$
-            $$
-            Y(z) = \frac{1}{1 - \frac{1}{2}z^{-1}}X(z) = 
-            H(z) X(z) \Rightarrow 
-            H(z) = \frac{1}{1 - \frac{1}{2}z^{-1}} \Rightarrow
-            $$
-            $$
-            h(n) = (\frac{1}{2})^{n} u(n)
-            $$
+        \begin{enumerate}
+            \item % 1a
+                \emph{"Recursive systems are never stable"}
+                \\
+                \textbf{False.} 
+                Recursive systems are IIR systems e.g. 
+                $$ y(n) = \frac{1}{2}y(n-1) + x(n) $$
+                If we by stability mean BIBO-stability we can simply prove that the system above is stable. The Z-transorm of the system above is
+                $$ 
+                    Y(z) = \frac{1}{2}z^{-1}Y(z) + X(z) \Rightarrow
+                    Y(z)(1 - \frac{1}{2}z^{-1}) = X(z) \Rightarrow
+                $$
+                $$
+                    Y(z) = \frac{1}{1 - \frac{1}{2}z^{-1}}X(z) = 
+                    H(z) X(z) \Rightarrow 
+                    H(z) = \frac{1}{1 - \frac{1}{2}z^{-1}} \Rightarrow
+                $$
+                $$
+                    h(n) = (\frac{1}{2})^{n} u(n)
+                $$
+                
+                By definition the system above is stable if
+                $ \sum_{n=0}^{\infty} |(\frac{1}{2})^{n}| < \infty $.
+                This is true because $(\frac{1}{2})^{n}$ goes to zero when $n$ goes to $\infty$.
             
-            By definition the system above is stable if
-            $ \sum_{n=0}^{\infty} |(\frac{1}{2})^{n}| < \infty $.
-            This is true because $(\frac{1}{2})^{n}$ goes to zero as $n$ goes to $\infty$.
+            \item % 1b
+                \emph{"A convolution of two sequences in the time domain corresponds to a multiplication of the Z transforms of the signals."}
+                \\
+                \textbf{True.} This is true by definition. Skriv in formel h'r
+            
+            \item % 1c
+                \emph{"An FIR filter is always stable."}
+                \\
+                \textbf{True.}
+                A FIR filter is always \emph{BIBO stable} and can be discribed with a difference equation:
+                $$ y(n) = \sum_{k=0}^{N} a_k x(n-k)$$
+                The system is stable as all and every $a_n < \infty$.
+                One exception to this is if we allow $N$ to be infinitely large. Then the system isn't stable as the sum goes to infinity.
+                
+            \item % 1d
+                \emph{"A first order IIR filter is stable iff the absolute value of the value of the factor in front of $y(n-1)$ is greater than 1."}
+                \\
+                \textbf{False.} The opposite is true. We can prove this by contradiction: If we assume the statement above is true we get:
+                
+                $$
+                    y(n) = Ay(n-1) + x(n), A > 1
+                $$
+                \begin{center}
+                    \textit{and}
+                \end{center}
+                $$
+                   \sum_k |h(k)| < \infty
+                $$
+                
+                Lets do the same steps as in \emph{1a)}:
+                $$
+                   y(n) = Ay(n-1) + x(n) \Rightarrow h(n) = A^nu(n)
+                $$
+                At last we get
+                $$
+                  \sum_k |h(k)| < \infty \Rightarrow \sum_{n=0}^{\infty}|A^n| < \infty  (A > 1)
+                $$
+                Which can't be true as the sum $\sum_{n=0}^{\infty}|A^n| \rightarrow \infty$.
+                
+            \item % 1e
+                \emph{"An IIR-filter is never a linear-phase system."}
+                % TODO
+                INTE KLAAAAAAAAAAR
+                
+                
+        \end{enumerate} % 1abcde
+    \item
+        \emph{"A discrete-time system is described by the difference equation:"}
+        $$
+            y(n)-y(n-1) + \frac{2}{9}y(n-2) = x(n)
+        $$
+        \begin{enumerate}
+            \item % 2a
+                \emph{"Determine the system function $H(z)$ and the impulse response $h(n)$ for the system and draw a pole-zero plot. Is the system stable?"}
+                
+                $$
+                    y(n)-y(n-1) + \frac{2}{9}y(n-2) = x(n) \longmapsto 
+                    Y(z) - Y(z)z^{-1} + \frac{2}{9} Y(z)z^{-2} = X(z) \Rightarrow
+                $$$$
+                    Y(z)(1 - z^{1} - \frac{2}{9} z^{-2}) = X(z) \Rightarrow
+                    Y(z) = \frac{1}{1 - z^{-1} - \frac{2}{9}z^{-2}} X(z) = H(z)X(z)
+                $$
+                
+                Now we have the system function. To get the impulse response we just need to inverse transform the system function.
+                $$
+                    H(z) = \frac{1}{1 - z^{-1} - \frac{2}{9}z^{-2}} = 
+                    \frac{z^2}{z^2 - z - \frac{2}{9}}
+                $$
+                $$
+                    z^2 - z - \frac{2}{9} = 0 \Rightarrow 
+                    z = \frac{1}{2} \pm \sqrt{(\frac{1}{2})^2 + \frac{2}{9}} = 
+                    \frac{1}{2} \pm \frac{\sqrt{17}}{6}
+                $$
+                INTE KLART H"RRR
+                
+            \item % 2b
+                \emph{"The following signal is the input signal to the system"}
+                $$
+                    x(n) = 3(\frac{1}{2})^nu(n)
+                $$
+        \end{enumerate}
+    \item % 3
+        \emph{"The figures below show four pole-zero plots and four impulse responses."}
+        \begin{enumerate}
+            \item % 3a
+                \emph{"Pair the correct plot A, B, C, D with the corresponding impulse response 1, 2, 3, 4."}
+                \\
+                \begin{center}
+                    \begin{tabular}{c|c}
+                        A & 1 \\
+                        B & 3 \\
+                        C & 4 \\
+                        D & 2 \\
+                    \end{tabular}
+                \end{center}
+            \item % 3b
+                \emph{"Pair the correct plot A, B, C, D with the corresponding statement I, II, III, IV."}
+                \\
+                \begin{center}
+                    \begin{tabular}{c|c}
+                        A & I \\
+                        B & III \\
+                        C & II \\
+                        D & IV \\
+                    \end{tabular}
+                \end{center}
+                
+                
+        \end{enumerate} % 3ab
         
-        \item % 1b
-            \emph{"A convolution of two sequences in the time domain corresponds to a multiplication of the Z transforms of the signals."}
-            \\
-            \textbf{True.} This is true by definition.
-        
-        \item % 1c
-            \emph{"An FIR filter is always stable."}
-            \\
-            \textbf{True.}
-            A FIR filter can be discribed with a difference equation:
-            $$ y(n) = \sum_{k=0}^{N} a_k x(n-k)$$
-            The system is stable as all $a_n < \infty$.
-            
-        \item % 1d
-            \emph{A first order IIR filter is stable iff the absolute value of the value of the factor in front of $y(n-1)$ is greater than 1.}
-            \\
-            \textbf{False.} The opposite is true. We can prove this by contradiction: If we assume the statement above is true we get:
-            
-            $$
-            y(n) = Ay(n-1) + x(n), A > 1
-            $$
-            \begin{center}
-                \textit{and}
-            \end{center}
-            $$
-            \sum_k |h(k)| < \infty
-            $$
-            
-            Lets do the same Z-transform as in \emph{1a)}:
-            $$
-            y(n) = Ay(n-1) + x(n) \Rightarrow h(n) = A^nu(n)
-            $$
-            At last we get
-            $$
-            \sum_k |h(k)| < \infty \Rightarrow \sum_{n=0}^{\infty}|A^n| < \infty
-            $$
-            
-            
-    \end{enumerate} 
-\end{enumerate}
+\end{enumerate} % 1,2,3
 
 \end{document}
