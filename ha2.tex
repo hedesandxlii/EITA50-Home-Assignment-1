@@ -1,13 +1,16 @@
-%        File: main.tex
+%       File: main.tex
 %     Created: Tue Oct 16 06:00 PM 2018 CST
 % Last Change: Tue Oct 16 06:00 PM 2018 CST
 %
 \documentclass{article}
 
-\usepackage[left=2cm, right=2cm, top=2cm]{geometry}
+\usepackage[left=3cm, right=3cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{pgfplots}
+\pgfplotsset{width=15cm,compat=1.9}
 \usepackage{graphicx}
+\usepackage{todonotes}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -21,30 +24,140 @@
 \begin{document}
 \maketitle
 \thispagestyle{fancy}
-\section{Solutions}
+\section*{Solutions}
 \begin{enumerate}
     \item % 1
-        \emph{``A rotor on a helicopter has four blades and rotates with 4 500 revolutions/minute, counter clockwise, (note, revolutions/minute). The rotor is filmed with a digital camera that takes 50 pictures/second. What will the perceived rotation speed be when watching the recorded film sequence? What will be the resulting direction of rotation? How does it look if the
-rotor goes slightly slower, with 4 499 revolutions/minute?''}
+        \emph{``A rotor on a helicopter has four blades and rotates with 4 500 revolutions/minute, counter
+            clockwise, (note, revolutions/minute). The rotor is filmed with a digital camera that takes 50
+            pictures/second. What will the perceived rotation speed be when watching the recorded film sequence?
+            What will be the resulting direction of rotation? How does it look if the rotor goes slightly 
+            slower, with 4 499 revolutions/minute?''} 
+
+        Let the frequency of the helicopters' rotor be $4500rpm = \frac{4500}{60}Hz = 75Hz$. 
+        The video camera does the sampling with $F_s=50Hz$. This means we get the relative 
+        frequency $f=\frac{75Hz}{50Hz}=1.5=0.5+1$.
+
+        Since we are under-sampling, the video of the rotor is only going to show $f=0.5$(half 
+        a turn). When really the rotors are spinning 1.5 turns per picture. 
+
+        If we then can't distinguish between the four rotor blades, it will look like the     
+        rotorblades are static in place.
+        \\
+
+        Lets now assume the helicopters' rotor is spinning at $4499rpm=74.98Hz$. With 
+        this we get $f=1.499=0.499+1$. Now the video camera shows $0.499$ revolutions per     
+        minute. This will give the effect of a slow movement \emph{clockwise}(The rotor is 
+        actually spinning \emph{counter clockwise}).
+        \\
+
+        We could also take an extra look at the rotor: Because the four rotor blades are seated in a $+$-sign,
+        only rotations less than $\frac{\pi}{2}rad$ can be distinguished. This means the $f$ in the first case 
+        can be written as $f = 1.5 = 0 + 0.25 * 6$ which means that the rotor blades appears to stand still. The
+        second case can be written as $f = 1.499 = (-0.001) + 0.25 * 6$ where the blade appears to have a
+        relative frequency of $-0.001$.
 
 
     \item % 2
         \emph{``The following discrete-time signals are given:''}
         \begin{displaymath}
-            x_1(n) 0 [1 -3 -1 3], x_2(n) = [-1 -1 2 -2 1 -2]
+            x_1(n) = 
+            \begin{bmatrix}
+                1 & \underline{-3} & -1 & 3
+            \end{bmatrix}
+            ,
+            x_2(n) = 
+            \begin{bmatrix}
+                \underline{-1} & -1 & 2 & -2 & 1 & -2
+            \end{bmatrix}
         \end{displaymath}
-        \emph{``Determine the following: (3 out of 4 correct answers gives full points.''}
-            \begin{enumerate}
-                \item % 2a
-                \item % 2b
-                \item % 2c
-                \item % 2d
-            \end{enumerate}
+
+        \emph{``Determine the following: (3 out of 4 correct answers gives full points.)''}
+        \begin{enumerate}
+            \item % 2a 
+                \emph{``The linear convolution of the sequences, that is, $y(n) = x_1(n) * x_2(n)$.''} 
+                \\
+                \begin{displaymath}
+                    y(n)=x_1(n)*x_2(n)=
+                    \begin{bmatrix}
+                        1 & \underline{-3} & -1 & 3
+                    \end{bmatrix}
+                    *
+                    \begin{bmatrix}
+                        \underline{-1} & -1 & 2 & -2 & 1 & -2
+                    \end{bmatrix}
+                \end{displaymath}
+
+                \begin{displaymath}
+                    =
+                    \begin{tabular}{c | c c c c}
+                        $x_1 * x_2  $ &  1   &  \underline{-3}  &  -1  &  3   \\
+                         \hline
+                         0  &   0  &  0   &  0   &   0  \\
+                         \underline{-1}& -1   &  3   &  1   &  -3  \\
+                         -1 & -1   &  3   &  1   &  -3  \\
+                         2  &  2   & -6   &  -2  &  6   \\
+                         -2 &  -2  &  6   &  2   &  -6  \\
+                         1  &  1   &  -3  &  -1  &  3   \\
+                         -2 &  -2  &  6   &  2   &  -6
+                    \end{tabular}
+                    \Longrightarrow
+                    y(n)=
+                    \begin{bmatrix}
+                        \underline{-1} & 2 & 6 & -10 & 2 & 3 & -1 & 5 & -6
+                    \end{bmatrix}
+                \end{displaymath}
+            \item % 2b
+                \emph{``''}
+                \\
+                \todo{Do not know how to perform circular convolution.}
+            \item % 2c
+                \emph{``The linear correlation of the sequences, that is, $r_{x_1x_2}(n)=x_1(n)*x_2(-n)$.''}
+                \\
+                \begin{displaymath}
+                    x_1(n) = 
+                    \begin{bmatrix}
+                        1 & \underline{-3} & -1 & 3
+                    \end{bmatrix}
+                    ,
+                    x_2(-n) = 
+                    \begin{bmatrix}
+                       -2&1 & -2 & 2 & -1 & \underline{-1} 
+                    \end{bmatrix}
+                \end{displaymath}
+
+                \begin{displaymath}
+                    x_1*x_2 =
+                    \begin{tabular}{c|cccc}
+                        $r_{x_1x_2}$    &   1   &   \underline{-3}  &   -1  &   3   \\
+                        \hline
+                        -2              &   -2  &   6               &   2   &   -6  \\  
+                        1               &   1   &   -3              &   -1  &   3   \\
+                        -2              &   -2  &   6               &   2   &   -6  \\  
+                        2               &   2   &   -6              &   -2  &   6   \\
+                        -1              &   -1  &   3               &   1   &   -3  \\
+                        \underline{-1}  &   -1  &   3               &   1   &   -3  \\
+                    \end{tabular}
+                    \Longrightarrow
+                    y(n)=
+                    \begin{bmatrix}
+                        -2 & \underline{7} & -3 & 1 & -2 & -6 & 10 & -2 & -3 
+                    \end{bmatrix}
+                \end{displaymath}
+
+            \item % 2d
+                \emph{``''}
+                \\
+                \todo{Also circular convolution}
+        \end{enumerate}
 
     \item % 3
         \emph{``Signals are sampled, down sampled or up sampled and reconstructed ideally according to the items below. Determine what the resulting signal will be.''}
         \begin{enumerate}
             \item % 3a
+                \emph{``The signal $cos(2\pi450t)$ is sampled using $F_s = 1000Hz$, and then down sampled by a
+                        factor 3 (that is, only every third sample value is kept). The resulting signal is then
+                        ideally reconstructed (using $F_s = 1000 Hz$).''}
+                
             \item % 3b
         \end{enumerate}
 \end{enumerate}
