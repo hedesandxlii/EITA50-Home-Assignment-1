@@ -7,8 +7,7 @@
 \usepackage[left=3cm, right=3cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage{pgfplots}
-\pgfplotsset{width=15cm,compat=1.9}
+\usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{todonotes}
 
@@ -157,10 +156,23 @@
                 \emph{``The signal $cos(2\pi450t)$ is sampled using $F_s = 1000Hz$, and then down sampled by a
                         factor 3 (that is, only every third sample value is kept). The resulting signal is then
                         ideally reconstructed (using $F_s = 1000 Hz$).''}
-                
+                \\
+                \begin{displaymath}
+                    cos(2\pi*450t) \xrightarrow[]{Sampling \textbf{1kHz}} cos(2\pi*\frac{450}{1000}n) = 
+                    \left\{ n=3n \right\} cos(2\pi*\frac{1350}{1000}n) = cos(2\pi*\frac{350}{1000}n)
+                \end{displaymath}
+                \begin{displaymath}
+                    \xrightarrow[]{Reconstruction \textbf{1kHz}} cos(2\pi*350t) 
+                \end{displaymath}
+
             \item % 3b
+                \emph{``The signal $cos(2\pi1680t)$ is sampled with $F_s = 600 Hz$, up-sampled (that is, after
+                        every sample value two zeroes are inserted), and then ideally reconstructed with a
+                        new sample rate, $Fs = 500 Hz$''}
+                \\
+                \todo{Don't know how to handle interpolated values.}
         \end{enumerate}
-\end{enumerate}
+    \end{enumerate}
 \end{document}
 
 
