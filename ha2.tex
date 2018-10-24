@@ -236,7 +236,8 @@
                 \\
                 \begin{displaymath}
                     cos(2\pi*450t) \xrightarrow[]{Sampling \textbf{1kHz}} cos(2\pi*\frac{450}{1000}n) = 
-                    \left\{ n=3n \right\} cos(2\pi*\frac{1350}{1000}n) = cos(2\pi*\frac{350}{1000}n)
+                    \left\{ n=3n \right\} cos(2\pi*\frac{1350}{1000}n) = 
+                    cos(2\pi* ( \frac{350}{1000} + k )n)
                 \end{displaymath}
                 \begin{displaymath}
                     \xrightarrow[]{Reconstruction \textbf{1kHz}} cos(2\pi*350t) 
@@ -247,7 +248,19 @@
                         every sample value two zeroes are inserted), and then ideally reconstructed with a
                         new sample rate, $Fs = 500 Hz$''}
                 \\
-                \todo{Don't know how to handle interpolated values.}
+
+                \begin{displaymath}
+                    cos(2\pi*1680t) \xrightarrow[]{Sampling \textbf{600Hz}} cos(2\pi*\frac{1680}{600}n)
+                    =
+                    cos(2\pi*\frac{28}{10}n)
+                    =
+                    cos(2\pi*(\frac{8}{10}+k)n)
+                    =
+                \end{displaymath}
+                \begin{displaymath}
+                    \left\{ f=\frac{f}{3} \right\} cos(2\pi*(\frac{8}{30}+k)n)
+                    \xrightarrow[]{Reconstruction \textbf{500Hz}} cos(2\pi*\frac{400}{3}t)
+                \end{displaymath}
         \end{enumerate}
     \end{enumerate}
 \end{document}
